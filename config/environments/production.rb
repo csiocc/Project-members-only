@@ -1,6 +1,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+  config.assets.initialize_on_precompile = false
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -87,5 +89,8 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.hosts << ENV.fetch("APP_HOST", "") unless ENV["APP_HOST"].blank?
+  config.hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
+  config.action_mailer.default_url_options = {
+  host: ENV.fetch("APP_HOST", "example.com"), protocol: "https"
+  }
 end
