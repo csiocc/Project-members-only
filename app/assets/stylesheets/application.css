@@ -1,0 +1,199 @@
+/* ================= MembersOnly – Polished UI (Light/Dark) ================== */
+/* Fokus: Links bleiben Links. Buttons nur mit .btn/.btn-* Klassen.           */
+/* Einbinden: <%= stylesheet_link_tag "application", "data-turbo-track":"reload" %> */
+
+:root {
+  /* Light (Default) */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f6f8;
+  --text: #0f172a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #6d28d9;      /* Violet 700 */
+  --accent-600: #5b21b6;
+  --success: #059669;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --radius: 14px;
+  --shadow: 0 12px 30px rgba(2, 6, 23, .08);
+  --hairline: linear-gradient(180deg, rgba(99,102,241,.2), rgba(99,102,241,0));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14;
+    --surface: #0f172a;
+    --surface-2: #111827;
+    --text: #e6edf3;
+    --muted: #9aa4b2;
+    --border: #1f2937;
+    --accent: #8b5cf6;    /* Violet 500 */
+    --accent-600: #7c3aed;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --shadow: 0 16px 40px rgba(0,0,0,.35);
+    --hairline: linear-gradient(180deg, rgba(139,92,246,.25), rgba(139,92,246,0));
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(139,92,246,.10), transparent 60%),
+    radial-gradient(1000px 500px at -10% 20%, rgba(59,130,246,.10), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+        "Apple Color Emoji","Segoe UI Emoji";
+}
+
+/* ---------- Layout & Typo ------------------------------------------------- */
+.container { max-width: 980px; margin: 0 auto; padding: 28px 20px; }
+h1,h2,h3 { line-height: 1.2; margin: 0 0 .7em; letter-spacing: .2px; }
+h1 { font-size: clamp(28px, 3.2vw, 36px); }
+h2 { font-size: clamp(22px, 2.6vw, 28px); }
+h3 { font-size: clamp(18px, 2.2vw, 22px); }
+p, ul, ol { margin: 0 0 1rem; }
+
+/* Links sehen wie Links aus (nicht wie Buttons!) */
+a { color: var(--accent); text-decoration: none; font-weight: 600; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,.25); border-radius: 8px; }
+
+/* ---------- Navbar (optional) --------------------------------------------- */
+.navbar {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: saturate(1.2) blur(8px);
+  background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55));
+  border-bottom: 1px solid var(--border);
+}
+@media (prefers-color-scheme: light) {
+  .navbar { background: rgba(255,255,255,.75); }
+}
+.navbar .inner { max-width: 1100px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 16px; align-items: center; }
+.navbar .brand { font-weight: 800; letter-spacing: .2px; }
+
+/* ---------- Cards --------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  position: relative;
+}
+.card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: calc(var(--radius) + 1px);
+  -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  padding: 1px; background: var(--hairline);
+}
+.card + .card { margin-top: 16px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.card-title { font-weight: 800; font-size: 18px; }
+
+/* ---------- Buttons (nur .btn-Klassen – Links bleiben unberührt) ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--surface-2); color: var(--text); text-decoration: none;
+  font-weight: 700; cursor: pointer; transition: transform .06s ease, background .2s ease, border-color .2s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,.25); }
+.btn-primary { background: var(--accent); border-color: var(--accent-600); color: white; }
+.btn-danger { background: var(--danger); border-color: #b91c1c; color: white; }
+.btn-ghost { background: transparent; }
+
+/* Native Form-Submit-Buttons stylisch machen */
+input[type=submit], button[type=submit] { all: unset; }
+input[type=submit], button[type=submit] { /* gleiche Optik wie .btn .btn-primary */
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+  border-radius: 12px; border: 1px solid var(--accent-600); background: var(--accent);
+  color: #fff; font-weight: 700; cursor: pointer; box-shadow: var(--shadow);
+}
+input[type=submit]:hover, button[type=submit]:hover { transform: translateY(-1px); }
+
+/* ---------- Forms --------------------------------------------------------- */
+form { display: grid; gap: 16px; }
+.form-row { display: grid; gap: 6px; }
+label { font-weight: 700; color: var(--muted); }
+input[type=text], input[type=email], input[type=password], textarea, select {
+  width: 100%; padding: 12px 14px; border-radius: 12px;
+  background: var(--surface-2); color: var(--text);
+  border: 1px solid var(--border); outline: none; transition: border-color .2s, box-shadow .2s, background .2s;
+}
+textarea { min-height: 140px; resize: vertical; }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(99,102,241,.20);
+}
+
+/* Rails-Fehler-Wrapper */
+.field_with_errors > * {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 0 4px rgba(239,68,68,.15);
+}
+.errors, .error-explanation {
+  border: 1px solid rgba(239,68,68,.45);
+  background: rgba(239,68,68,.08);
+  color: #fecaca; border-radius: 12px; padding: 12px 14px;
+}
+
+/* ---------- Flash -------------------------------------------------------- */
+.flash {
+  border-radius: 12px; padding: 12px 14px; margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.flash.notice { background: rgba(16,185,129,.12); border-color: #064e3b; color: #a7f3d0; }
+.flash.alert  { background: rgba(239,68,68,.12); border-color: #7f1d1d; color: #fecaca; }
+.flash.warning{ background: rgba(245,158,11,.12); border-color: #78350f; color: #fde68a; }
+
+/* ---------- Lists: Posts & Comments -------------------------------------- */
+.post-list { display: grid; gap: 18px; }
+.post {
+  padding: 18px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface);
+  transition: transform .08s ease, box-shadow .2s ease;
+}
+.post:hover { transform: translateY(-2px); box-shadow: 0 20px 50px rgba(0,0,0,.08); }
+.post .meta { color: var(--muted); font-size: 14px; margin-top: 6px; }
+.post .actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+.comments { display: grid; gap: 12px; margin-top: 18px; }
+.comment {
+  padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--surface), rgba(17,24,39,.06));
+}
+.comment .author { color: var(--muted); font-size: 14px; margin-bottom: 6px; }
+
+/* ---------- Tables (falls genutzt) --------------------------------------- */
+table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 8px 0 16px; font-size: 15px; }
+th, td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+th { text-align: left; color: var(--muted); font-weight: 800; }
+tr:hover td { background: rgba(99,102,241,.04); }
+
+/* ---------- Utilities ----------------------------------------------------- */
+.grid-2 { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+.mt-0{margin-top:0} .mt-1{margin-top:6px} .mt-2{margin-top:12px} .mt-3{margin-top:18px}
+.mb-0{margin-bottom:0} .mb-1{margin-bottom:6px} .mb-2{margin-bottom:12px} .mb-3{margin-bottom:18px}
+.hr { height: 1px; background: var(--border); border: 0; margin: 12px 0; }
+
+/* ---------- Prose (schönes Lesen für Show/Body) -------------------------- */
+.prose { font-size: 17px; line-height: 1.75; }
+.prose p { margin: 0 0 1em; }
+.prose a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* ---------- Collapse Panel  ---------------------------------------------- */
+.collapse-panel { overflow: hidden; max-height: 0; transition: max-height .25s ease; will-change: max-height; }
+.btn-inline { padding: 6px 10px; border-radius: 10px; }
+.chevron { display:inline-block; width: 14px; height: 14px; translate: 0 1px; }
+.muted { color: var(--muted); }

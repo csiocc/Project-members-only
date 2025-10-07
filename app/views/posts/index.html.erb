@@ -1,0 +1,22 @@
+<% content_for :title, "Posts" %>
+
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title">Posts</h1>
+    <div class="actions">
+      <% if user_signed_in? %>
+      <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @posts.blank? %>
+    <p class="muted">Noch keine Posts.</p>
+  <% end %>
+</div>
+
+<div id="posts" class="post-list mt-2">
+  <% @posts.each do |post| %>
+    <%= render post %>
+  <% end %>
+</div>

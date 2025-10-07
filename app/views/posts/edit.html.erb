@@ -1,0 +1,14 @@
+<% content_for :title, "Edit post" %>
+
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title">Edit post</h1>
+  </div>
+
+  <%= render "form", post: @post %>
+
+  <div class="actions mt-2">
+    <%= link_to "Back to post", @post %>
+    <%= link_to "All posts", posts_path %>
+  </div>
+</div>

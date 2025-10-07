@@ -1,0 +1,23 @@
+<article id="<%= dom_id(user) %>" class="post">
+  <h2><%= user.name.presence || "Unnamed" %></h2>
+  <p class="meta">
+    <% if user.respond_to?(:created_at) && user.created_at %>
+      Joined <%= l(user.created_at, format: :short) %>
+    <% end %>
+    <% if user.respond_to?(:posts) %>
+      · <%= pluralize(user.posts.size, "post") %>
+    <% end %>
+      <% if user.respond_to?(:comments) %>
+      · <%= pluralize(user.comments.size, "comment") %>
+    <% end %>
+  </p>
+  <div class="actions">
+    <%# Nur anzeigen, wenn die Route existiert %>
+    <% if Rails.application.routes.url_helpers.method_defined?(:user_path) %>
+      <%= link_to "Show", user %>
+    <% end %>
+    <% if Rails.application.routes.url_helpers.method_defined?(:edit_user_path) %>
+      <%= link_to "Edit", edit_user_path(user) %>
+    <% end %>
+  </div>
+</article>

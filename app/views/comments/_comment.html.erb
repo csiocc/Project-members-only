@@ -1,0 +1,55 @@
+<!-- app/views/comments/_comment.html.erb -->
+<article id="comment_<%= comment.id %>" class="comment" data-controller="collapse">
+  <%if user_signed_in?%>
+  <div class="author"><%= comment.user&.name %></div>
+  <%else%> <div class="author"><%= "anonymous" %></div> 
+  <%end%>
+  <div class="prose"><%= simple_format comment.body %></div>
+
+  <div class="actions mt-1">
+    <!-- Toggle für das Inline-Reply-Form -->
+    <button type="button" class="btn btn-inline"
+            data-action="collapse#toggle"
+            aria-expanded="false"
+            aria-controls="reply_<%= comment.id %>">
+      Reply
+      <svg class="chevron" data-collapse-target="chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"/>
+      </svg>
+    </button>
+
+    <% replies_count = comment.replies.count %>
+    <% if replies_count > 0 %>
+      <button type="button" class="btn btn-inline"
+              data-action="collapse#toggle"
+              aria-expanded="false"
+              aria-controls="replies_<%= comment.id %>">
+        <span data-collapse-target="label">Replies (<%= replies_count %>)</span>
+        <svg class="chevron" data-collapse-target="chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"/>
+        </svg>
+      </button>
+    <% end %>
+  </div>
+
+  <!-- Inline-Reply-Form: post_id & parent_id explizit setzen -->
+  <div id="reply_<%= comment.id %>" class="collapse-panel mt-1" data-collapse-target="panel" aria-hidden="true">
+    <%= form_with model: Comment.new, id: "reply_form_#{comment.id}" do |f| %>
+      <%= f.hidden_field :post_id,   value: comment.post_id %>
+      <%= f.hidden_field :parent_id, value: comment.id %>
+      <div class="form-row">
+        <%= f.label :body, "Your reply" %>
+        <%= f.text_area :body, rows: 3, required: true %>
+      </div>
+      <%= f.submit "Reply", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <!-- Nur direkte Antworten dieses Kommentars -->
+  <div id="replies_<%= comment.id %>" class="collapse-panel comment-children mt-1"
+       data-collapse-target="panel" aria-hidden="true">
+    <% comment.replies.order(:created_at).each do |child| %>
+      <%= render "comments/comment", comment: child %>
+    <% end %>
+  </div>
+</article>

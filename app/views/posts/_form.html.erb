@@ -1,0 +1,24 @@
+<%= form_with model: post, id: "post_form" do |f| %>
+  <% if post.errors.any? %>
+    <div class="errors">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% post.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-row">
+    <%= f.label :title %>
+    <%= f.text_field :title, required: true %>
+  </div>
+
+  <div class="form-row">
+    <%= f.label :body %>
+    <%= f.text_area :body, rows: 8, required: true %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

@@ -1,0 +1,5 @@
+<%= render @post %>
+
+<div class="mt-2">
+  <%= link_to "New comment", new_comment_path(post_id: @post.id), class: "btn" %>
+</div>

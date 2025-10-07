@@ -1,0 +1,25 @@
+<% content_for :title, "New user" %>
+
+<h1>New user</h1>
+
+<%= render "form", user: @user %>
+<div class = "User-form">
+  <form>
+    <label for="Name">Name</label><br>
+    <input type="text" name="name" id="name">
+  </form>
+  <form>
+    <label for="Email">Email</label><br>
+    <input type="text" name="email" id="email">
+  </form>
+  <form>
+    <label for="Password">Password</label><br>
+    <input type="password" name="password" id="password">
+  </form>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Back to users", users_path %>
+</div>

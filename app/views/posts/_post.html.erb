@@ -1,0 +1,58 @@
+<%# locals: full (true/false). Default: false %>
+<% full = local_assigns.fetch(:full, false) %>
+
+<article id="<%= dom_id(post) %>" class="post" data-controller="collapse">
+  <h2><%= link_to post.title, post %></h2>
+
+  <p class="meta">
+    <% if user_signed_in? %>
+      by <%= post.user&.name %> · <%= l(post.created_at, format: :short) %>
+    <% else %>
+      by anonymous · <%= l(post.created_at, format: :short) %>
+    <% end %>
+  </p>
+
+  <% if post.body.present? %>
+    <% if full %>
+      <div class="prose mt-1"><%= simple_format(post.body) %></div>
+    <% else %>
+      <div class="prose mt-1">
+        <%= simple_format(truncate(post.body, length: 220, separator: " ")) %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+  <% if user_signed_in? && post.user_id == current_user.id %>
+    <%= link_to "Edit", edit_post_path(post), class: "btn btn-primary" %>
+    <%= link_to "Delete", post, data: { turbo_method: :delete, turbo_confirm: "Sicher löschen?" }, class: "btn btn-danger" %>
+  <% end %>
+  
+    <!-- Toggle: nur Top-Level-Kommentare -->
+    <button type="button"
+            class="btn btn-inline"
+            data-action="collapse#toggle"
+            aria-expanded="false"
+            aria-controls="comments_<%= post.id %>">
+      <span data-collapse-target="label">Comments (<%= post.comments.where(parent_id: nil).count %>)</span>
+      <svg class="chevron" data-collapse-target="chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 011.08 1.04l-4.25 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Panel: nur Root-Kommentare -->
+  <div id="comments_<%= post.id %>"
+       class="collapse-panel mt-2"
+       data-collapse-target="panel"
+       aria-hidden="true">
+    <% roots = post.comments.where(parent_id: nil).order(:created_at) %>
+    <% if roots.any? %>
+      <% roots.each do |comment| %>
+        <%= render "comments/comment", comment: comment %>
+      <% end %>
+    <% else %>
+      <p class="muted mb-0">Keine Kommentare.</p>
+    <% end %>
+  </div>
+</article>

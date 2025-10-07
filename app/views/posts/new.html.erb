@@ -1,0 +1,13 @@
+<% content_for :title, "New post" %>
+
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title">New post</h1>
+  </div>
+
+  <%= render "form", post: @post %>
+</div>
+
+<div class="mt-2">
+  <%= link_to "Back to posts", posts_path %>
+</div>
