@@ -9,6 +9,12 @@ development:
   cable:
     adapter: sqlite3
     database: db/development.sqlite3
+  queue:
+    adapter: sqlite3
+    database: db/development.sqlite3
+  cache:            # optional, falls solid_cache im Gemfile ist
+    adapter: sqlite3
+    database: db/development.sqlite3
 
 test:
   primary:
@@ -17,12 +23,23 @@ test:
   cable:
     adapter: sqlite3
     database: db/test.sqlite3
+  queue:
+    adapter: sqlite3
+    database: db/test.sqlite3
+  cache:            # optional
+    adapter: sqlite3
+    database: db/test.sqlite3
 
 production:
-  # Heroku / Postgres
   primary:
     url: <%= ENV["DATABASE_URL"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
   cable:
+    url: <%= ENV["DATABASE_URL"] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  queue:
+    url: <%= ENV["DATABASE_URL"] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  cache:            # optional
     url: <%= ENV["DATABASE_URL"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
