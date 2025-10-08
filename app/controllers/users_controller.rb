@@ -9,6 +9,13 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
+
+        @posts     = @user.posts
+                      .includes(:user, comments: :user)
+                      .order(created_at: :desc)
+        @comments  = @user.comments
+                      .includes(:post, :user, :parent)
+                      .order(created_at: :desc)
   end
 
   # GET /users/new

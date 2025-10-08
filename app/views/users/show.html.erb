@@ -22,7 +22,7 @@
 
 
 <% if @user.respond_to?(:posts) && @user.posts.any? %>
-  <h2 class="mt-3">Posts by <%= @user.name.presence || "this user" %></h2>
+  <h2 class="mt-3">Posts by <%= @user.name.presence %></h2>
   <div class="post-list mt-2">
     <% @user.posts.each do |post| %>
       <article class="post">
@@ -38,7 +38,7 @@
 <% end %>
 
 <% if @user.respond_to?(:comments) && @user.comments.any? %>
-  <h2 class="mt-3">Comments by <%= @user.name.presence || "this user" %></h2>
+  <h2 class="mt-3">Comments by <%= @user.name.presence %></h2>
   <div class="post-list mt-2">
     <% @user.comments.each do |post| %>
       <article class="comment">
