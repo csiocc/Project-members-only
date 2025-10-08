@@ -89,6 +89,7 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.hosts << /.*\.herokuapp\.com/
   config.hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
   config.action_mailer.default_url_options = {
   host: ENV.fetch("APP_HOST", "example.com"), protocol: "https"
