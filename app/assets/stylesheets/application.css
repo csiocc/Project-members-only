@@ -96,7 +96,7 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,.25); bor
   padding: 1px; background: var(--hairline);
 }
 .card + .card { margin-top: 16px; }
-.card-header { display: flex; justify-content: center; align-items: center; }
+.card-header { display: flex; justify-content: space-between; align-items: center; }
 .card-title { font-weight: 800; font-size: 18px; }
 
 /* ---------- Buttons (nur .btn-Klassen – Links bleiben unberührt) ---------- */
