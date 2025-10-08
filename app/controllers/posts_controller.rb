@@ -36,6 +36,8 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to posts_path, notice: "Post deleted."
+  rescue ActiveRecord::InvalidForeignKey => e
+    redirect_to @post, alert: "Post hat abhängige Kommentare/Replies und konnte nicht gelöscht werden."
   end
 
   private
