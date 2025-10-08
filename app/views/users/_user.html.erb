@@ -12,7 +12,6 @@
     <% end %>
   </p>
   <div class="actions">
-    <%# Nur anzeigen, wenn die Route existiert %>
     <% if Rails.application.routes.url_helpers.method_defined?(:user_path) %>
       <%= link_to "Show", user %>
     <% end %>

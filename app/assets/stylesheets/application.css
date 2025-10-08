@@ -72,13 +72,12 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,.25); bor
   backdrop-filter: saturate(1.2) blur(8px);
   background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55));
   border-bottom: 1px solid var(--border);
-  justify-content: center;
 }
 @media (prefers-color-scheme: light) {
   .navbar { background: rgba(255,255,255,.75); }
 }
-.navbar .inner { max-width: 1100px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 16px; align-items: center; }
-.navbar .brand { font-weight: 800; letter-spacing: .2px; }
+.navbar .inner { max-width: 1100px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 16px; align-items: center; justify-content: center;}
+.navbar .brand { font-weight: 800; letter-spacing: .2px;}
 
 /* ---------- Cards --------------------------------------------------------- */
 .card {
@@ -97,7 +96,7 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,.25); bor
   padding: 1px; background: var(--hairline);
 }
 .card + .card { margin-top: 16px; }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.card-header { display: flex; justify-content: center; align-items: center; }
 .card-title { font-weight: 800; font-size: 18px; }
 
 /* ---------- Buttons (nur .btn-Klassen – Links bleiben unberührt) ---------- */
