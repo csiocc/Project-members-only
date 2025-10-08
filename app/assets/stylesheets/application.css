@@ -72,6 +72,7 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,.25); bor
   backdrop-filter: saturate(1.2) blur(8px);
   background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(17,24,39,.55));
   border-bottom: 1px solid var(--border);
+  justify-content: center;
 }
 @media (prefers-color-scheme: light) {
   .navbar { background: rgba(255,255,255,.75); }
